@@ -3,8 +3,11 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('pages/UserCreation.vue'),
-    children: [{ path: '', component: () => import('pages/UserCreation.vue') }],
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '/home', component: () => import('pages/UserCreation.vue') },
+      { path: '/bmi', component: () => import('pages/BMI.vue') },
+    ],
   },
 
   // Always leave this as last one,
