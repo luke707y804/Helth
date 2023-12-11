@@ -1,11 +1,10 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+    <q-img
+      :src="'src\assets\helth.png'"
+      spinner-color="white"
+      style="max-width: 150px"
+    />
   </q-page>
 </template>
 
