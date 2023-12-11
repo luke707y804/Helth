@@ -21,11 +21,16 @@ const getUser = () => {
   user = $my_usern.get;
 };
 
+const calculateBMI = () => {
+  user.weight / (user.height * user.height);
+};
 //  BMI = weight / (height)²
 
 onMounted(async () => {
   getUser();
   test.value = user;
   console.log(JSON.stringify(user));
+  calculateBMI();
+  console.log(calculateBMI);
 });
 </script>
