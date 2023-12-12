@@ -1,6 +1,13 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <img src="src\assets\helth.png" />
+    <!-- <img src="src\assets\helth.png" /> -->
+
+    <q-img
+      src="src/assets/helth.png"
+      spinner-color="white"
+      style="height: 200px; max-width: 400px"
+    />
+
     <div>
       <q-form class="q-gutter-md">
         <q-input

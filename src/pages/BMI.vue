@@ -24,6 +24,7 @@ const getUser = () => {
 const calculateBMI = () => {
   user.weight / (user.height * user.height);
 };
+
 //  BMI = weight / (height)²
 
 onMounted(async () => {
