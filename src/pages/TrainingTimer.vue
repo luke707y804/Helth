@@ -46,13 +46,13 @@
                 color="primary"
                 class="q-mr-sm"
               />
-              <q-btn
+              <!-- <q-btn
                 v-if="isRunning"
                 @click="pauseTimer"
                 label="Pause"
                 color="warning"
                 class="q-mr-sm"
-              />
+              /> -->
               <q-btn @click="resetTimer" label="Reset" color="negative" />
             </div>
           </div>
@@ -78,16 +78,20 @@ const reps = ref<number>(5);
 const startTimer = () => {
   if (!isRunning.value) {
     isRunning.value = true;
-
-    if (isWorkTimer.value) {
-      reps.value -= 1;
-      isWorkTimer.value = false;
-      isBreakTimer.value = true;
-      timeRemaining.value = breakDuration.value * 60;
+    if (reps.value > 0) {
+      if (isWorkTimer.value) {
+        reps.value -= 1;
+        isWorkTimer.value = false;
+        isBreakTimer.value = true;
+        timeRemaining.value = breakDuration.value * 60;
+      } else {
+        isWorkTimer.value = true;
+        isBreakTimer.value = false;
+        timeRemaining.value = workDuration.value * 60;
+      }
     } else {
-      isWorkTimer.value = true;
+      isWorkTimer.value = false;
       isBreakTimer.value = false;
-      timeRemaining.value = workDuration.value * 60;
     }
 
     timerInterval = setInterval(() => {
