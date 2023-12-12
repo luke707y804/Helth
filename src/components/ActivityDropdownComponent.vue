@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import LStore from 'src/stores/user-store';
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -50,15 +51,26 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
+const $my_usern = LStore.useUserStore();
+
+var user: any = null;
+
+const getUser = () => {
+  user = $my_usern.get;
+};
+
 //TODO: Request parameter mitgeben -> activity, weight, duration
 // Async function to fetch data
 async function fetchData() {
   try {
-    const response = await fetch(URL_CALORIE + activitySelection.value, {
-      headers: {
-        'X-Api-Key': API_KEY,
-      },
-    });
+    const response = await fetch(
+      URL_CALORIE + activitySelection.value + getUser.weight,
+      {
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Request failed with status: ${response.status}`);
