@@ -36,7 +36,7 @@ onMounted(() => {
   // Set up a custom timer to call getCurrentPosition every second
   const timerInterval = setInterval(() => {
     getCurrentPosition();
-  }, 500);
+  }, 100);
 
   // we start listening
   geoId = Geolocation.watchPosition({}, (newPosition, err) => {
