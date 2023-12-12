@@ -2,7 +2,7 @@
   <h1>Sportart auswählen</h1>
   <q-select
     filled
-    v-model="model.value"
+    v-model="model"
     use-input
     input-debounce="0"
     label="Simple filter"
@@ -29,21 +29,22 @@ const API_KEY = 'CV0yaQY+YW/AfGyqRLQvzQ==l69t0wMCKBV6MOfr';
 const stringOptions: string[] = [];
 
 const model = ref();
-const options = ref(stringOptions);
+const options = ref();
 
 const activity = ref();
 
 const filterFn = (val: any, update: any) => {
   if (val === '') {
     update(() => {
-      options.value = stringOptions;
+      options.value = stringOptions.values.activities;
+      console.log(stringOptions.values.activities);
     });
     return;
   }
 
   update(() => {
     const needle = val.toLowerCase();
-    options.value = stringOptions.filter(
+    options.value = stringOptions.values.activities.filter(
       (v) => v.toLowerCase().indexOf(needle) > -1
     );
   });
@@ -52,7 +53,7 @@ const filterFn = (val: any, update: any) => {
 // Async function to fetch data
 async function fetchData() {
   try {
-    const response = await fetch(URL_CALORIE + activity, {
+    const response = await fetch(URL_CALORIE + activity.value, {
       headers: {
         'X-Api-Key': API_KEY,
       },
