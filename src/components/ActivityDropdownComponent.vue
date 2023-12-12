@@ -28,11 +28,16 @@ const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
 const API_KEY = 'CV0yaQY+YW/AfGyqRLQvzQ==l69t0wMCKBV6MOfr';
 
+const URL_TEST =
+  'https://api.api-ninjas.com/v1/caloriesburned?activity=Unicycling&weight=90&duration=1';
+
 const stringOptions: string[] = [];
 
 const options = ref();
 
 const activitySelection = ref();
+
+const queryParams = new URLSearchParams();
 
 const filterFn = (val: any, update: any) => {
   if (val === '') {
