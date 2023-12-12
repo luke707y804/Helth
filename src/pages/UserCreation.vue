@@ -36,8 +36,6 @@
         />
 
         <q-btn class="button" label="abschicken" @click="saveUser()" />
-
-        <q-btn class="button" label="ab gehts" @click="routeToBMI()" />
       </q-form>
     </div>
   </q-layout>
@@ -66,6 +64,7 @@ const saveUser = () => {
   const store = LStore.useUserStore();
   store.update(userTest);
   console.log(userTest);
+  routeToBMI();
 };
 
 const routeToBMI = () => {
