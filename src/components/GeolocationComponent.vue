@@ -5,7 +5,7 @@
       Latitude: {{ positionAsObject?.coords?.latitude }}, Longitude:
       {{ positionAsObject?.coords?.longitude }}, Speed:
       {{
-        positionAsObject?.coords?.speed * 3.6 + ' km/h' ||
+        positionAsObject?.coords?.speed * 3.6 + ' km/h test' ||
         'Currently not moving'
       }}
     </strong>
