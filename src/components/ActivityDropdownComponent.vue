@@ -23,8 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned';
-
+const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
 const API_KEY = 'CV0yaQY+YW/AfGyqRLQvzQ==l69t0wMCKBV6MOfr';
 
@@ -56,24 +55,26 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
-function setQueryParams() {
-  queryParams.set('activity', activitySelection.value);
-  queryParams.set('weight', '90');
-  queryParams.set('duration', '1');
-}
+const $my_usern = LStore.useUserStore();
+
+var user: any = null;
+
+const getUser = () => {
+  user = $my_usern.get;
+};
 
 //TODO: Request parameter mitgeben -> activity, weight, duration
 // Async function to fetch data
 async function fetchData() {
   try {
-    // setQueryParams();
-    // const urlWithParameters = `${URL_CALORIE}?${queryParams.toString()}`;
-
-    const response = await fetch(URL_TEST, {
-      headers: {
-        'X-Api-Key': API_KEY,
-      },
-    });
+    const response = await fetch(
+      URL_CALORIE + activitySelection.value + getUser.weight,
+      {
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Request failed with status: ${response.status}`);
