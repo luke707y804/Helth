@@ -1,19 +1,24 @@
 <template>
   <div>
-    GPS position: <strong>{{ position }}</strong>
+    <!-- GPS position: <strong>{{ stringPosition }}</strong> -->
+    <strong>
+      Latitude: {{ positionPosition?.coords?.latitude }}, Longitude:
+      {{ positionPosition?.coords?.longitude }}
+    </strong>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { Geolocation } from '@capacitor/geolocation';
+import { Geolocation, Position } from '@capacitor/geolocation';
 
-const position = ref('determining...');
+const positionPosition = ref();
+const stringPosition = ref();
 
 function getCurrentPosition() {
   Geolocation.getCurrentPosition().then((newPosition) => {
     console.log('Current', newPosition);
-    position.value = newPosition;
+    positionPosition.value = newPosition;
   });
 }
 
@@ -25,7 +30,7 @@ onMounted(() => {
   // we start listening
   geoId = Geolocation.watchPosition({}, (newPosition, err) => {
     console.log('New GPS position');
-    position.value = newPosition;
+    stringPosition.value = newPosition;
   });
 });
 
