@@ -23,15 +23,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
+const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned';
+
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
 const API_KEY = 'CV0yaQY+YW/AfGyqRLQvzQ==l69t0wMCKBV6MOfr';
+
+const URL_TEST =
+  'https://api.api-ninjas.com/v1/caloriesburned?activity=Unicycling&weight=90&duration=1';
 
 const stringOptions: string[] = [];
 
 const options = ref();
 
 const activitySelection = ref();
+
+const queryParams = new URLSearchParams();
 
 const filterFn = (val: any, update: any) => {
   if (val === '') {
@@ -50,11 +56,20 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
+function setQueryParams() {
+  queryParams.set('activity', activitySelection.value);
+  queryParams.set('weight', '90');
+  queryParams.set('duration', '1');
+}
+
 //TODO: Request parameter mitgeben -> activity, weight, duration
 // Async function to fetch data
 async function fetchData() {
   try {
-    const response = await fetch(URL_CALORIE + activitySelection.value, {
+    // setQueryParams();
+    // const urlWithParameters = `${URL_CALORIE}?${queryParams.toString()}`;
+
+    const response = await fetch(URL_TEST, {
       headers: {
         'X-Api-Key': API_KEY,
       },
