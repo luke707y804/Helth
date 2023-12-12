@@ -20,10 +20,12 @@ const positionAsObject = ref();
 const positionAsString = ref();
 
 function getCurrentPosition() {
-  Geolocation.getCurrentPosition().then((newPosition) => {
-    // console.log('Current', newPosition);
-    positionAsObject.value = newPosition;
-  });
+  Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then(
+    (newPosition) => {
+      // console.log('Current', newPosition);
+      positionAsObject.value = newPosition;
+    }
+  );
 }
 
 let geoId: any;
@@ -34,7 +36,7 @@ onMounted(() => {
   // Set up a custom timer to call getCurrentPosition every second
   const timerInterval = setInterval(() => {
     getCurrentPosition();
-  }, 1000);
+  }, 500);
 
   // we start listening
   geoId = Geolocation.watchPosition({}, (newPosition, err) => {
