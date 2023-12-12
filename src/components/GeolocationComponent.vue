@@ -4,7 +4,7 @@
     <strong>
       Latitude: {{ positionAsObject?.coords?.latitude }}, Longitude:
       {{ positionAsObject?.coords?.longitude }}, Speed:
-      {{ positionAsObject?.coords?.speed }}
+      {{ positionAsObject?.coords?.speed || 'Currently not moving' }}
     </strong>
   </div>
 </template>
@@ -38,10 +38,10 @@ onMounted(() => {
     // console.log('New GPS position');
     positionAsString.value = newPosition;
   });
-});
-
-onBeforeUnmount(() => {
-  // we do cleanup
-  Geolocation.clearWatch(geoId);
+  onBeforeUnmount(() => {
+    // we do cleanup
+    clearInterval(timerInterval);
+    Geolocation.clearWatch(geoId);
+  });
 });
 </script>
