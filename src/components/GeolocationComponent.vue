@@ -1,15 +1,36 @@
-<template></template>
+<template>
+  <div>
+    GPS position: <strong>{{ position }}</strong>
+  </div>
+</template>
 
 <script setup lang="ts">
-import { Plugins } from '@capacitor/core';
-const { Geolocation } = Plugins;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { Geolocation } from '@capacitor/geolocation';
 
-async function getCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log('Current', coordinates);
-  }
+const position = ref('determining...');
 
- function watchPosition() {
-    const wait = Geolocation.watchPosition({}, (position, err) => {
-    })
+function getCurrentPosition() {
+  Geolocation.getCurrentPosition().then((newPosition) => {
+    console.log('Current', newPosition);
+    position.value = newPosition;
+  });
+}
+
+let geoId: any;
+
+onMounted(() => {
+  getCurrentPosition();
+
+  // we start listening
+  geoId = Geolocation.watchPosition({}, (newPosition, err) => {
+    console.log('New GPS position');
+    position.value = newPosition;
+  });
+});
+
+onBeforeUnmount(() => {
+  // we do cleanup
+  Geolocation.clearWatch(geoId);
+});
 </script>
