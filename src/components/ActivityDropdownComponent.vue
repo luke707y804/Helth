@@ -1,11 +1,11 @@
 <template>
-  <h1>Sportart auswählen</h1>
   <q-select
     filled
-    v-model="model"
+    v-model="activitySelection"
     use-input
     input-debounce="0"
-    label="Simple filter"
+    clearable
+    label="Sportart auswählen"
     :options="options"
     @filter="filterFn"
     style="width: 250px"
@@ -17,6 +17,7 @@
       </q-item>
     </template>
   </q-select>
+  <q-btn @click="fetchData()">Test</q-btn>
 </template>
 
 <script setup lang="ts">
@@ -28,16 +29,15 @@ const API_KEY = 'CV0yaQY+YW/AfGyqRLQvzQ==l69t0wMCKBV6MOfr';
 
 const stringOptions: string[] = [];
 
-const model = ref();
 const options = ref();
 
-const activity = ref();
+const activitySelection = ref();
 
 const filterFn = (val: any, update: any) => {
   if (val === '') {
     update(() => {
       options.value = stringOptions.values.activities;
-      console.log(stringOptions.values.activities);
+      // console.log(stringOptions.values.activities);
     });
     return;
   }
@@ -50,10 +50,11 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
+//TODO: Request parameter mitgeben -> activity, weight, duration
 // Async function to fetch data
 async function fetchData() {
   try {
-    const response = await fetch(URL_CALORIE + activity.value, {
+    const response = await fetch(URL_CALORIE + activitySelection.value, {
       headers: {
         'X-Api-Key': API_KEY,
       },
@@ -64,7 +65,9 @@ async function fetchData() {
     }
 
     const data = await response.json();
-    console.log(data);
+
+    console.log('Activity: ' + activitySelection.value);
+    console.log('Klappt: ' + JSON.stringify(data));
   } catch (error: any) {
     console.error('Request failed:', error.message);
   }
