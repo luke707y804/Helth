@@ -65,26 +65,29 @@
 <script setup lang="ts">
 import { ref, watch, onBeforeUnmount } from 'vue';
 
-const workDuration = ref<number>(0.1);
-const breakDuration = ref<number>(0.2);
+const workDuration = ref<number>(0.05);
+const breakDuration = ref<number>(0.05);
 const totalWorkoutDuration = ref<number>(1);
 const isWorkTimer = ref<boolean>(false);
 const isBreakTimer = ref<boolean>(false);
 const isRunning = ref<boolean>(false);
 let timerInterval: number;
 const timeRemaining = ref<number>(workDuration.value * 60);
-const reps = ref<number>(5);
+const reps = ref<number>(2);
+var count = reps.value * 2 - 1;
 
 const startTimer = () => {
   if (!isRunning.value) {
     isRunning.value = true;
-    if (reps.value > 0) {
+    if (count > 0) {
       if (isWorkTimer.value) {
         reps.value -= 1;
+        count -= 1;
         isWorkTimer.value = false;
         isBreakTimer.value = true;
         timeRemaining.value = breakDuration.value * 60;
       } else {
+        count -= 1;
         isWorkTimer.value = true;
         isBreakTimer.value = false;
         timeRemaining.value = workDuration.value * 60;
