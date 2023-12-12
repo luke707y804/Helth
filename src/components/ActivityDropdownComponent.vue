@@ -17,11 +17,12 @@
       </q-item>
     </template>
   </q-select>
-  <q-btn @click="fetchData()">Test</q-btn>
+  <q-btn @click="fetchtest()">Test</q-btn>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import LStore from 'src/stores/user-store';
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -63,6 +64,30 @@ const getUser = () => {
   user = $my_usern.get;
 };
 
+async function fetchtest() {
+  const url = 'https://api.api-ninjas.com/v1/caloriesburned';
+  const params = new URLSearchParams({
+    activity: activitySelection.value,
+    weight: getUser.weight,
+  });
+  //TODO: mit Zeit vom Timer verbinden
+  const headers = new Headers({
+    'X-API-Key': API_KEY,
+  });
+
+  const options2 = {
+    method: 'GET',
+    headers: headers,
+  };
+
+  try {
+    const response = await fetch(`${url}?${params}`, options2);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 //TODO: Request parameter mitgeben -> activity, weight, duration
 // Async function to fetch data
 async function fetchData() {
