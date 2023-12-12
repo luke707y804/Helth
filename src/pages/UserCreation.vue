@@ -1,50 +1,56 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- <img src="src\assets\helth.png" /> -->
+    <div class="q-pa-md row items-start q-gutter-md">
+      <q-card class="my-card">
+        <q-card-section>
 
-    <q-img
-      src="src/assets/helth.png"
-      spinner-color="white"
-      style="height: 200px; max-width: 400px"
-    />
+          <q-img
+            src="src/assets/banner_bmi.svg"
+            spinner-color="white"
+          />
 
-    <div>
-      <q-form class="q-gutter-md">
-        <q-input
-          filled
-          v-model="name"
-          label="Your name *"
-          lazy-rules
-          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
-        />
-        <q-input
-          filled
-          type="number"
-          v-model="age"
-          label="Your age *"
-          lazy-rules
-          :rules="ageRules"
-        />
-        <q-input
-          filled
-          type="number"
-          v-model="weight"
-          label="Your weight in KG *"
-          lazy-rules
-          :rules="weightRules"
-        />
-        <q-input
-          filled
-          type="number"
-          v-model="height"
-          label="Your height in cm *"
-          lazy-rules
-          :rules="heigthRules"
-        />
+          <div>
+            <q-form >
+              <q-input class="q-gutter-md"
+                filled
+                v-model="name"
+                label="Your name *"
+                lazy-rules
+                :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+              />
+              
+              <q-input class="q-gutter-md"
+                filled
+                type="number"
+                v-model="age"
+                label="Your age *"
+                lazy-rules
+                :rules="ageRules"
+              />
+              <q-input class="q-gutter-md"
+                filled
+                type="number"
+                v-model="weight"
+                label="Your weight in KG *"
+                lazy-rules
+                :rules="weightRules"
+              />
+              <q-input
+                filled
+                type="number"
+                v-model="height"
+                label="Your height in cm *"
+                lazy-rules
+                :rules="heigthRules"
+              />
 
-        <q-btn class="button" label="abschicken" @click="saveUser()" />
-      </q-form>
-    </div>
+              <q-btn class="button" label="abschicken" @click="saveUser()" />
+            </q-form>
+          </div>
+        </q-card-section>
+      </q-card> 
+    </div>       
   </q-layout>
 </template>
 <script setup lang="ts">
@@ -104,3 +110,40 @@ const heigthRules = [
 // const saveUser = (usert) => {
 //   $my_user.update(usert)
 </script>
+<style scoped>
+  /* Stil für das gesamte Formular-Container */
+  .q-layout-lHh_Lpr_lFf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Stil für die q-card */
+  .my-card {
+    width: 80%; /* Hier kannst du die Breite nach Bedarf anpassen */
+    margin: 0 auto; /* Zentriert die Karte im Container */
+  }
+
+  /* Stil für das Bild */
+  .sporty-img {
+    height: 200px;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+
+
+  /* Stil für den Button */
+  .button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+</style>
+
+

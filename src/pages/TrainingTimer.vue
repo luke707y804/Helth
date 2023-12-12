@@ -1,8 +1,8 @@
 <!-- src/pages/PomodoroTimer.vue -->
 <template>
-  <q-page>
+  <q-layout view="lHh Lpr lFf">
     <div class="q-pa-md text-h6">
-      <q-card>
+      <q-card class="my-card">
         <q-card-section>
           <div v-if="isWorkTimer || isBreakTimer">
             <div v-if="isWorkTimer">
@@ -23,43 +23,47 @@
             </div>
           </div>
           <div v-else>
-            <q-input
+            <q-input class="q-gutter-md"
+              filled
               v-model="workDuration"
               label="Work Duration (minutes)"
               type="number"
-              outlined
-              dense
+              
             />
-            <q-input
+            
+            <q-input class="q-gutter-md"
               v-model="breakDuration"
               label="Break Duration (minutes)"
               type="number"
-              outlined
-              dense
+              filled
             />
-            <q-input v-model="reps" label="Reps" type="number" outlined dense />
+            <q-input class="q-gutter-md"
+            v-model="reps" 
+            label="Reps" 
+            type="number" 
+            filled
+            />
             <div class="q-mt-md">
-              <q-btn
+              <q-btn class="button"
                 v-if="!isRunning"
                 @click="startTimer"
                 label="Start"
-                color="primary"
-                class="q-mr-sm"
+                filled
+                
               />
               <!-- <q-btn
                 v-if="isRunning"
                 @click="pauseTimer"
                 label="Pause"
-                color="warning"
-                class="q-mr-sm"
+                
               /> -->
-              <q-btn @click="resetTimer" label="Reset" color="negative" />
+              <q-btn class="button" @click="resetTimer" label="Reset" color="negative" />
             </div>
           </div>
         </q-card-section>
       </q-card>
     </div>
-  </q-page>
+  </q-layout>
 </template>
 
 <script setup lang="ts">
@@ -142,8 +146,51 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* styles.css */
+
+/* Stil für das gesamte Formular-Container */
+.q-layout-lHh_Lpr_lFf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stil für die q-card */
+.my-card {
+  width: 80%; /* Hier kannst du die Breite nach Bedarf anpassen */
+  margin: 0 auto; /* Zentriert die Karte im Container */
+}
+
+/* Stil für das Timer-Element */
 .timer {
   display: flex;
   align-items: center;
 }
+
+
+/* Stil für den Button */
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Zusätzlicher Stil für den "Start" Button */
+.button[disabled] {
+  background-color: #ddd; /* Hintergrundfarbe für deaktivierten Zustand */
+  cursor: not-allowed; /* Zeige an, dass der Button deaktiviert ist */
+}
+/* Stil für die Eingabefelder */
+.q-gutter-md {
+  width: 100%;
+  padding: 10px; /* Hinzugefügtes Padding für konsistentes Erscheinungsbild */
+}
+
+
+
 </style>
