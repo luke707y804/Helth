@@ -10,6 +10,7 @@ const routes: RouteRecordRaw[] = [
       { path: '/test', component: () => import('pages/BMITest.vue') },
       { path: '/train', component: () => import('pages/TrainingTimer.vue') },
       { path: '/', component: () => import('pages/GeoTest.vue') },
+      { path: '/vib', component: () => import('pages/VibrateTest.vue') },
     ],
   },
 
