@@ -38,8 +38,6 @@ const uStore = UStore.useUserStore();
 
 const activity = ref();
 
-activity.value.s;
-
 // var user: any = 'No User';
 
 // const test = () => {
