@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import LStore from 'src/stores/user-store';
+import userStore from 'src/stores/user-store';
 import timeStore from 'src/stores/time-store';
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
@@ -57,16 +57,17 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
-const $my_usern = null;
+var userStoreVar: any = null;
 
-var user: any = null;
+const user = userStore.useUserStore();
 
 const getUser = () => {
-  user = $my_usern.get;
+  user.get;
 };
 
 const time = timeStore.useTimeStore();
 
+//TODO: Der Store ist hier immer undefined, in der Page gehts, hier nicht -> WHY??
 async function fetchtest() {
   console.log('Lucas is a depp ' + JSON.stringify(getUser()));
   const url = 'https://api.api-ninjas.com/v1/caloriesburned';
@@ -76,7 +77,7 @@ async function fetchtest() {
     // duration: time.getTime.toString(),
 
     activity: activitySelection.value,
-    weight: getUser.weight.toString(),
+    weight: JSON.stringify(getUser.weight),
     duration: '20.0',
   });
   //TODO: mit Zeit vom Timer verbinden

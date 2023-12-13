@@ -4,14 +4,14 @@
   <!-- Trainingsauswahl, Zeit stoppen und dann Ergebnis -->
   <q-card>
     <q-card-section vertical>
-      <ActivityDropdownComponent ref="activity"></ActivityDropdownComponent>
+      <ActivityDropdownComponent></ActivityDropdownComponent>
     </q-card-section>
     <q-card-section vertical>
       <TrainingTimerComponent></TrainingTimerComponent>
     </q-card-section>
     <q-card-section>
       <q-btn @click="timePassed()" label="Abspeichern" color="cyan"></q-btn>
-      <q-btn @click="test()" label="TEST und so" color="cyan"></q-btn>
+      <!-- <q-btn @click="test()" label="TEST und so" color="cyan"></q-btn> -->
     </q-card-section>
   </q-card>
 </template>
@@ -36,12 +36,11 @@ const timePassed = () => {
 
 const uStore = UStore.useUserStore();
 
-const activity = ref();
-
 // var user: any = 'No User';
 
 // const test = () => {
 //   user = uStore.get;
-//   console.log(user);
+
+//   // activity.setUserStore(uStore);
 // };
 </script>
