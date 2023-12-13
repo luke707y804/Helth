@@ -64,6 +64,8 @@
 
 <script setup lang="ts">
 import { ref, watch, onBeforeUnmount } from 'vue';
+import { storeToRefs } from 'pinia';
+import LStore from 'src/stores/time-store';
 
 const workDuration = ref<number>(0.05);
 const breakDuration = ref<number>(0.05);
@@ -78,10 +80,12 @@ var count = reps.value * 2 - 1;
 
 const startTimer = () => {
   if (!isRunning.value) {
+    //storePassedTime();
     isRunning.value = true;
     if (count > 0) {
       if (isWorkTimer.value) {
-        reps.value -= 1;
+        // reps.value -= 1;
+        console.log(count + " in der Schleife")
         count -= 1;
         isWorkTimer.value = false;
         isBreakTimer.value = true;
@@ -93,8 +97,9 @@ const startTimer = () => {
         timeRemaining.value = workDuration.value * 60;
       }
     } else {
-      isWorkTimer.value = false;
-      isBreakTimer.value = false;
+      // isWorkTimer.value = false;
+      // isBreakTimer.value = false;
+
     }
 
     timerInterval = setInterval(() => {
@@ -103,7 +108,13 @@ const startTimer = () => {
       } else {
         clearInterval(timerInterval);
         isRunning.value = false;
-        startTimer(); // Start the next timer
+        if(count>0) {
+          startTimer(); // Start the next timer
+        } else {
+          console.log(count + " Am Ende der Schleife")
+          storePassedTime();
+          resetTimer();
+        }
       }
     }, 1000);
   }
@@ -139,6 +150,13 @@ watch([workDuration, breakDuration], () => {
 onBeforeUnmount(() => {
   clearInterval(timerInterval);
 });
+
+const storePassedTime = () => {
+  // Speichern der vergangengen Zeit als Number
+  const store = LStore.useTimeStore();
+  store.update(workDuration.value*reps.value);
+}
+
 </script>
 
 <style scoped>
