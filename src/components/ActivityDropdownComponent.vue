@@ -61,15 +61,14 @@ var userStoreVar: any = null;
 
 const user = userStore.useUserStore();
 
-const getUser = () => {
-  user.get;
-};
-
 const time = timeStore.useTimeStore();
 
 //TODO: Der Store ist hier immer undefined, in der Page gehts, hier nicht -> WHY??
 async function fetchtest() {
-  console.log('Lucas is a depp ' + JSON.stringify(getUser()));
+  const getUser = user.get;
+  console.log(getUser.weight);
+  let weight = +getUser.weight;
+
   const url = 'https://api.api-ninjas.com/v1/caloriesburned';
   const params = new URLSearchParams({
     // activity: activitySelection.value,
@@ -77,8 +76,8 @@ async function fetchtest() {
     // duration: time.getTime.toString(),
 
     activity: activitySelection.value,
-    weight: JSON.stringify(getUser.weight),
-    duration: '20.0',
+    weight: weight.toString(),
+    duration: '20',
   });
   //TODO: mit Zeit vom Timer verbinden
   const headers = new Headers({
