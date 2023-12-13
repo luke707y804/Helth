@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import LStore from 'src/stores/user-store';
+import AStore from 'src/stores/exercise-store';
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -43,7 +44,7 @@ const filterFn = (val: any, update: any) => {
   if (val === '') {
     update(() => {
       options.value = stringOptions.values.activities;
-      // console.log(stringOptions.values.activities);
+      console.log(stringOptions.values.activities);
     });
     return;
   }
@@ -127,6 +128,8 @@ async function fetchAll() {
     }
 
     stringOptions.values = await response.json();
+    const exerciseStore = AStore.useExerciseStore();
+    exerciseStore.update(stringOptions.values.activities);
   } catch (error: any) {
     console.error('Request failed:', error.message);
   }
