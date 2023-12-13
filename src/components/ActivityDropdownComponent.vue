@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import LStore from 'src/stores/user-store';
+import timeStore from 'src/stores/time-store';
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -56,7 +57,7 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
-const $my_usern = LStore.useUserStore();
+const $my_usern = null;
 
 var user: any = null;
 
@@ -64,11 +65,19 @@ const getUser = () => {
   user = $my_usern.get;
 };
 
+const time = timeStore.useTimeStore();
+
 async function fetchtest() {
+  console.log('Lucas is a depp ' + JSON.stringify(getUser()));
   const url = 'https://api.api-ninjas.com/v1/caloriesburned';
   const params = new URLSearchParams({
+    // activity: activitySelection.value,
+    // weight: getUser.weight,
+    // duration: time.getTime.toString(),
+
     activity: activitySelection.value,
-    weight: getUser.weight,
+    weight: getUser.weight.toString(),
+    duration: '20.0',
   });
   //TODO: mit Zeit vom Timer verbinden
   const headers = new Headers({
