@@ -11,6 +11,7 @@ const routes: RouteRecordRaw[] = [
       //{ path: '/train', component: () => import('pages/TrainingTimer.vue') },
       { path: '/overview', component: () => import('pages/FunctionsOverview.vue') },
       { path: '/', component: () => import('pages/GeoTest.vue') },
+      { path: '/vib', component: () => import('pages/CameraTest.vue') },
     ],
   },
   // Julian stinkt

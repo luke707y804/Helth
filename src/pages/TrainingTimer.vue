@@ -1,65 +1,78 @@
 <!-- src/pages/PomodoroTimer.vue -->
 <template>
-  <q-page>
+  <q-layout view="lHh Lpr lFf">
     <div class="q-pa-md text-h6">
-      <q-card>
-        <q-card-section>
-          <div v-if="isWorkTimer || isBreakTimer">
-            <div v-if="isWorkTimer">
-              <div class="timer">
-                <q-badge color="red" text-color="white" class="q-mr-xs">
-                  {{ formatTime(timeRemaining) }}
-                </q-badge>
-                <q-icon name="timer" size="2em" color="red" />
-              </div>
-            </div>
-            <div v-if="isBreakTimer">
-              <div class="timer">
-                <q-badge color="green" text-color="white" class="q-mr-xs">
-                  {{ formatTime(timeRemaining) }}
-                </q-badge>
-                <q-icon name="timer" size="2em" color="green" />
-              </div>
-            </div>
+      <q-img
+        src="src/assets/Stay_focused!.svg"
+        spinner-color="white"
+        class="custom-image"
+      />
+
+      <div v-if="isWorkTimer || isBreakTimer">
+        <div v-if="isWorkTimer">
+          <div class="timer">
+            <q-icon name="timer" size="25vw" color="red" />
+            <q-badge color="red" text-color="white" class="q-mr-xs">
+              {{ formatTime(timeRemaining) }}
+            </q-badge>
           </div>
-          <div v-else>
-            <q-input
-              v-model="workDuration"
-              label="Work Duration (minutes)"
-              type="number"
-              outlined
-              dense
-            />
-            <q-input
-              v-model="breakDuration"
-              label="Break Duration (minutes)"
-              type="number"
-              outlined
-              dense
-            />
-            <q-input v-model="reps" label="Reps" type="number" outlined dense />
-            <div class="q-mt-md">
-              <q-btn
-                v-if="!isRunning"
-                @click="startTimer"
-                label="Start"
-                color="primary"
-                class="q-mr-sm"
-              />
-              <!-- <q-btn
+        </div>
+        <div v-if="isBreakTimer">
+          <div class="timer">
+            <q-icon name="timer" size="25vw" color="green" />
+            <q-badge color="green" text-color="white" class="q-mr-xs">
+              {{ formatTime(timeRemaining) }}
+            </q-badge>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <q-input
+          class="q-gutter-md"
+          filled
+          v-model="workDuration"
+          label="Work Duration (minutes)"
+          type="number"
+        />
+
+        <q-input
+          class="q-gutter-md"
+          v-model="breakDuration"
+          label="Break Duration (minutes)"
+          type="number"
+          filled
+        />
+        <q-input
+          class="q-gutter-md"
+          v-model="reps"
+          label="Reps"
+          type="number"
+          filled
+        />
+        <div class="q-mt-md">
+          <q-btn
+            class="button"
+            v-if="!isRunning"
+            @click="startTimer"
+            label="Start"
+            filled
+          />
+          <!-- <q-btn
                 v-if="isRunning"
                 @click="pauseTimer"
                 label="Pause"
-                color="warning"
-                class="q-mr-sm"
+
               /> -->
-              <q-btn @click="resetTimer" label="Reset" color="negative" />
-            </div>
-          </div>
-        </q-card-section>
-      </q-card>
+          <q-btn
+            class="button"
+            @click="resetTimer"
+            label="Reset"
+            color="negative"
+          />
+        </div>
+      </div>
     </div>
-  </q-page>
+  </q-layout>
 </template>
 
 <script setup lang="ts">
@@ -142,8 +155,63 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* styles.css */
+
+/* Stil für das gesamte Formular-Container */
+.q-layout-lHh_Lpr_lFf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stil für die q-card */
+.my-card {
+  width: 100%; /* Hier kannst du die Breite nach Bedarf anpassen */
+  margin: 0 auto; /* Zentriert die Karte im Container */
+}
+
+/* Stil für das Timer-Element */
 .timer {
   display: flex;
   align-items: center;
+}
+
+/* Stil für den Button */
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Zusätzlicher Stil für den "Start" Button */
+.button[disabled] {
+  background-color: #ddd; /* Hintergrundfarbe für deaktivierten Zustand */
+  cursor: not-allowed; /* Zeige an, dass der Button deaktiviert ist */
+}
+/* Stil für die Eingabefelder */
+.q-gutter-md {
+  width: 100%;
+  padding: 10px; /* Hinzugefügtes Padding für konsistentes Erscheinungsbild */
+}
+.timer {
+  display: flex;
+  flex-direction: column; /* Setzt die Richtung der Flexbox auf vertikal (untereinander) */
+  align-items: center; /* Zentriert die Elemente horizontal in der Flexbox */
+}
+.q-badge {
+  font-size: 32px; /* Passe die Schriftgröße nach Bedarf an */
+  padding: 20px;
+}
+.custom-image {
+  width: 90%;
+  margin: 0 auto; /* Horizontal zentrieren */
+  display: flex;
+  align-items: center; /* Vertikal zentrieren */
+  justify-content: center; /* Vertikal zentrieren */
 }
 </style>

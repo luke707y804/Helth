@@ -1,5 +1,4 @@
 <template>
-  Test
   <q-layout>
     <q-page-container>
       <router-view />
