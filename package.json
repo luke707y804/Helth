@@ -18,7 +18,9 @@
     "@capacitor/core": "^5.5.1",
     "@capacitor/geolocation": "^5.0.6",
     "@capacitor/haptics": "^5.0.6",
+
     "@ionic/pwa-elements": "^3.2.2",
+
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
     "chart.js": "^4.4.1",

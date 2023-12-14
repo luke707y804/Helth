@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia';
+import { User } from 'src/dto/user-dto';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: null,
+    user: {},
   }),
   getters: {
     get: (state) => state.user,
   },
   actions: {
-    update(input: any) {
+    update(input: User) {
       this.user = input;
       console.log(JSON.stringify(this.user));
     },

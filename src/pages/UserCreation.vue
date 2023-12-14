@@ -81,7 +81,7 @@ const saveUser = () => {
 
 const routeToBMI = () => {
   router.push({
-    path: '/bmi',
+    path: '/overview',
   });
 };
 

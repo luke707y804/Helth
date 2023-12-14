@@ -22,7 +22,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import LStore from 'src/stores/user-store';
+
+
+import AStore from 'src/stores/exercise-store';
+
+import userStore from 'src/stores/user-store';
+import timeStore from 'src/stores/time-store';
+
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -43,7 +49,7 @@ const filterFn = (val: any, update: any) => {
   if (val === '') {
     update(() => {
       options.value = stringOptions.values.activities;
-      // console.log(stringOptions.values.activities);
+      console.log(stringOptions.values.activities);
     });
     return;
   }
@@ -56,19 +62,27 @@ const filterFn = (val: any, update: any) => {
   });
 };
 
-const $my_usern = LStore.useUserStore();
+var userStoreVar: any = null;
 
-var user: any = null;
+const user = userStore.useUserStore();
 
-const getUser = () => {
-  user = $my_usern.get;
-};
+const time = timeStore.useTimeStore();
 
+//TODO: Der Store ist hier immer undefined, in der Page gehts, hier nicht -> WHY??
 async function fetchtest() {
+  const getUser = user.get;
+  console.log(getUser.weight);
+  let weight = +getUser.weight;
+
   const url = 'https://api.api-ninjas.com/v1/caloriesburned';
   const params = new URLSearchParams({
+    // activity: activitySelection.value,
+    // weight: getUser.weight,
+    // duration: time.getTime.toString(),
+
     activity: activitySelection.value,
-    weight: getUser.weight,
+    weight: weight.toString(),
+    duration: '20',
   });
   //TODO: mit Zeit vom Timer verbinden
   const headers = new Headers({
@@ -127,6 +141,8 @@ async function fetchAll() {
     }
 
     stringOptions.values = await response.json();
+    const exerciseStore = AStore.useExerciseStore();
+    exerciseStore.update(stringOptions.values.activities);
   } catch (error: any) {
     console.error('Request failed:', error.message);
   }

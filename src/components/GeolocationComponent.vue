@@ -15,15 +15,19 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Geolocation, Position } from '@capacitor/geolocation';
+import LStore from 'src/stores/speed-store';
 
 const positionAsObject = ref();
 const positionAsString = ref();
+
+var speedArray = [];
 
 function getCurrentPosition() {
   Geolocation.getCurrentPosition({ enableHighAccuracy: true }).then(
     (newPosition) => {
       // console.log('Current', newPosition);
       positionAsObject.value = newPosition;
+      speedArray.push(newPosition.coords.speed);
     }
   );
 }
@@ -47,6 +51,8 @@ onMounted(() => {
     // we do cleanup
     clearInterval(timerInterval);
     Geolocation.clearWatch(geoId);
+    const average = (speedArray: any) =>
+      speedArray.reduce((p: any, c: any) => p + c, 0) / speedArray.length;
   });
 });
 </script>
