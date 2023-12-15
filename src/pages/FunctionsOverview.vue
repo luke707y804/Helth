@@ -2,18 +2,26 @@
   Overview works
   <!-- Was wollen wir hier jetzt nochmal darstellen?-->
   <!-- Trainingsauswahl, Zeit stoppen und dann Ergebnis -->
-  <q-card>
-    <q-card-section vertical>
-      <ActivityDropdownComponent></ActivityDropdownComponent>
-    </q-card-section>
-    <q-card-section vertical>
-      <TrainingTimerComponent></TrainingTimerComponent>
-    </q-card-section>
+  <q-card class="my-card">
     <q-card-section>
-      <q-btn @click="timePassed()" label="Abspeichern" color="cyan"></q-btn>
-      <!-- <q-btn @click="test()" label="TEST und so" color="cyan"></q-btn> -->
+      <q-img
+        class="sporty-img"
+        src="src/assets/Stay_focused!.svg"
+        spinner-color="white"
+      />
     </q-card-section>
   </q-card>
+  <q-card class="my-card">
+    <q-card-section>
+      <div class="dropDown">
+        <ActivityDropdownComponent></ActivityDropdownComponent>
+      </div>
+    </q-card-section>
+  </q-card>
+  <TrainingTimerComponent></TrainingTimerComponent>
+
+  <q-btn @click="timePassed()" label="Abspeichern" color="cyan"></q-btn>
+  <!-- <q-btn @click="test()" label="TEST und so" color="cyan"></q-btn> -->
 </template>
 <script setup lang="ts">
 import ActivityDropdownComponent from 'src/components/ActivityDropdownComponent.vue';
@@ -44,3 +52,8 @@ const uStore = UStore.useUserStore();
 //   // activity.setUserStore(uStore);
 // };
 </script>
+<style scoped>
+.dropDown {
+  padding: 20px;
+}
+</style>

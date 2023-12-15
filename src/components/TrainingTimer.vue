@@ -1,8 +1,8 @@
 <!-- src/pages/PomodoroTimer.vue -->
 <template>
   <q-page>
-    <div class="q-pa-md text-h6">
-      <q-card>
+    <div class="q-layout-lHh_Lpr_lFf">
+      <q-card class="my-card">
         <q-card-section>
           <div v-if="isWorkTimer || isBreakTimer">
             <div v-if="isWorkTimer">
@@ -24,27 +24,38 @@
           </div>
           <div v-else>
             <q-input
+              class="q-gutter-md"
               v-model="workDuration"
               label="Work Duration (minutes)"
               type="number"
               outlined
               dense
+              filled
             />
             <q-input
+              class="q-gutter-md"
               v-model="breakDuration"
               label="Break Duration (minutes)"
               type="number"
               outlined
               dense
+              filled
             />
-            <q-input v-model="reps" label="Reps" type="number" outlined dense />
-            <div class="q-mt-md">
+            <q-input
+              class="q-gutter-md"
+              v-model="reps"
+              label="Reps"
+              type="number"
+              outlined
+              dense
+              filled
+            />
+            <div>
               <q-btn
                 v-if="!isRunning"
                 @click="startTimer"
                 label="Start"
-                color="primary"
-                class="q-mr-sm"
+                color="green"
               />
               <!-- <q-btn
                 v-if="isRunning"
@@ -53,7 +64,12 @@
                 color="warning"
                 class="q-mr-sm"
               /> -->
-              <q-btn @click="resetTimer" label="Reset" color="negative" />
+              <q-btn
+                @click="resetTimer"
+                label="Reset"
+                color="white"
+                text-color="green"
+              />
             </div>
           </div>
         </q-card-section>
@@ -85,7 +101,7 @@ const startTimer = () => {
     if (count > 0) {
       if (isWorkTimer.value) {
         // reps.value -= 1;
-        console.log(count + " in der Schleife")
+        console.log(count + ' in der Schleife');
         count -= 1;
         isWorkTimer.value = false;
         isBreakTimer.value = true;
@@ -99,7 +115,6 @@ const startTimer = () => {
     } else {
       // isWorkTimer.value = false;
       // isBreakTimer.value = false;
-
     }
 
     timerInterval = setInterval(() => {
@@ -108,10 +123,10 @@ const startTimer = () => {
       } else {
         clearInterval(timerInterval);
         isRunning.value = false;
-        if(count>0) {
+        if (count > 0) {
           startTimer(); // Start the next timer
         } else {
-          console.log(count + " Am Ende der Schleife")
+          console.log(count + ' Am Ende der Schleife');
           storePassedTime();
           resetTimer();
         }
@@ -154,14 +169,61 @@ onBeforeUnmount(() => {
 const storePassedTime = () => {
   // Speichern der vergangengen Zeit als Number
   const store = LStore.useTimeStore();
-  store.update(workDuration.value*reps.value);
-}
-
+  store.update(workDuration.value * reps.value);
+};
 </script>
 
 <style scoped>
+/* styles.css */
+
+/* Stil für das gesamte Formular-Container */
+.q-layout-lHh_Lpr_lFf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stil für die q-card */
+.my-card {
+  width: 100%; /* Hier kannst du die Breite nach Bedarf anpassen */
+  margin: 0 auto; /* Zentriert die Karte im Container */
+}
+
+/* Stil für das Timer-Element */
 .timer {
   display: flex;
   align-items: center;
+}
+
+/* Stil für den Button */
+
+/* Zusätzlicher Stil für den "Start" Button */
+
+/* Stil für die Eingabefelder */
+.q-gutter-md {
+  width: 100%;
+  padding: 10px; /* Hinzugefügtes Padding für konsistentes Erscheinungsbild */
+}
+.timer {
+  display: flex;
+  flex-direction: column; /* Setzt die Richtung der Flexbox auf vertikal (untereinander) */
+  align-items: center; /* Zentriert die Elemente horizontal in der Flexbox */
+}
+.q-badge {
+  font-size: 32px; /* Passe die Schriftgröße nach Bedarf an */
+  padding: 20px;
+}
+.custom-image {
+  width: 90%;
+  margin: 0 auto; /* Horizontal zentrieren */
+  display: flex;
+  align-items: center; /* Vertikal zentrieren */
+  justify-content: center; /* Vertikal zentrieren */
+}
+.sporty-img {
+  height: 200px;
+  max-width: 100%;
+  margin-bottom: 20px;
 }
 </style>

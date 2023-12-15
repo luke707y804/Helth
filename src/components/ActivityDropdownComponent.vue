@@ -8,7 +8,6 @@
     label="Sportart auswählen"
     :options="options"
     @filter="filterFn"
-    style="width: 250px"
     behavior="menu"
   >
     <template v-slot:no-option>
@@ -17,18 +16,16 @@
       </q-item>
     </template>
   </q-select>
-  <q-btn @click="fetchtest()">Test</q-btn>
+  <q-btn color="green" @click="fetchtest()">Test </q-btn>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-
 import AStore from 'src/stores/exercise-store';
 
 import userStore from 'src/stores/user-store';
 import timeStore from 'src/stores/time-store';
-
 
 const URL_CALORIE = 'https://api.api-ninjas.com/v1/caloriesburned?activity=';
 const URL_ALL = 'https://api.api-ninjas.com/v1/caloriesburnedactivities';
@@ -153,3 +150,4 @@ async function fetchAll() {
 
 fetchAll();
 </script>
+<style scoped></style>
